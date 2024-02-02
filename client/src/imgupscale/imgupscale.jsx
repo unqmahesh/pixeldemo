@@ -1,6 +1,7 @@
 import react, { useState, useEffect } from 'react'
 import './imgupscale.css'
 import imgUpScale from '../server-api/imgupscale-api.js'
+import ImgComp from '../imgcomp/imgcomp.jsx'
 
 
 function ImgUpScale() {

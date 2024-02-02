@@ -26,7 +26,7 @@ function TxtToImg() {
       return(
         <>  
             <div className='txt2img'>
-            {!base64Img ? (loading && <h1>Loading...</h1> ) : (<ImgComp base64Img = {base64Img} />)}
+            {!base64Img ? (loading && <h1>Loading...</h1> ) : (<img src={`data:image/png;base64,${base64Img}`} alt='image' />)}
             <input placeholder='Enter a prompt' onChange={handleChange} value={prompt} />
             <button onClick={handleSubmit} >Submit</button>
             </div>
