@@ -1,0 +1,20 @@
+.txt2img{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap : 10px;
+}
+
+input{
+    height : 40px;
+    width : 400px;
+    background-color: rgb(241, 241, 241);
+    border-radius: 8px;
+    border: none;
+    outline : none;
+    font-size: 1rem;
+}
+
