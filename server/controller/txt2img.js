@@ -7,8 +7,8 @@ const apiKey = process.env.APIKEY || 'sk-BKUwyE5wMukal5bpq2YeypkiiMYSb1A25WhsHw3
 
 
 const requestBody = {
-        height: 1080,
-        width: 1920,
+        height: 896,
+        width: 1152,
         text_prompts: [{text: 'a paper that container , Hey type something',}],
         cfg_scale: 7,
         steps: 30,
