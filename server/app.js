@@ -8,7 +8,7 @@ const app = express()
 
 const clientOrigin = process.env.CLIENTORIGIN || "http://localhost:5173"
 
-app.use(cors({origin : clientOrigin, credentials : true}))
+app.use(cors({origin : '*', credentials : true}))
 
 
 app.use(express.urlencoded({extended : true}))
