@@ -1,37 +1,51 @@
 import axios from 'axios'
 
 
-const engineId = 'stable-diffusion-v1-6';
-const apiHost = 'https://api.stability.ai';
-const apiKey = process.env.APIKEY || 'sk-BKUwyE5wMukal5bpq2YeypkiiMYSb1A25WhsHw3hEL13RKyb'
+// const engineId = 'stable-diffusion-v1-6';
+// const apiHost = 'https://api.stability.ai';
+const apiKey = process.env.TXT2IMGAPIKEY || 'sk-BKUwyE5wMukal5bpq2YeypkiiMYSb1A25WhsHw3hEL13RKyb'
 
 
 const requestBody = {
-        height: 896,
-        width: 1152,
-        text_prompts: [{text: 'a paper that container , Hey type something',}],
-        cfg_scale: 7,
-        steps: 30,
-        samples: 1,
+        aspect_ratio : "16:9",
+        negative_prompt : "blur",
+        prompt: 'a paper that container , Hey type something',
+        seed : 1
+        // cfg_scale: 7,
+        // steps: 30,
+        // samples: 1,
     };
   
 const headers = {
-    'Content-Type': 'application/json',
+    'Content-Type': 'multipart/form-data',
     Accept: 'application/json',
     Authorization: `Bearer ${apiKey}`,
   };
 
 const generateImg = async (req, res) => {
-    const {prompt} = req.body
-    requestBody.text_prompts[0].text = prompt
-    try{
-        const response = await axios.post(`${apiHost}/v1/generation/${engineId}/text-to-image`,requestBody, {headers})
-        const artifacts = response.data.artifacts
-        res.status(200).json({SUCCESS : true, data : {artifacts}})
+
+    const {prompt, seed, negative_prompt, aspect_ratio} = req.body
+    requestBody.seed = seed || Number(requestBody.seed)
+    requestBody.negative_prompt = negative_prompt || requestBody.negative_prompt
+    requestBody.aspect_ratio = aspect_ratio || requestBody.aspect_ratio
+    requestBody.prompt = prompt || requestBody.prompt
+
+    console.log(requestBody)
+
+    try
+    {
+        const response = await axios.post('https://api.stability.ai/v2beta/stable-image/generate/core',
+        requestBody,
+        {headers})
+
+        const image = response.data.image
+        res.status(200).json({SUCCESS : true, data : {image}})
     }catch(error){
-        console.log(error.message)
+        console.log(error.response.data)
         res.status(400).json({"SUCCESS" : false})
     }
 }
 
 export default generateImg
+
+// ${apiHost}/v1/generation/${engineId}/text-to-image`

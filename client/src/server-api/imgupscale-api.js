@@ -7,7 +7,7 @@ const imgUpScale = async (image) => {
     let formData = new FormData()
     formData.append('image', image)
     try{
-        const response = await axios.post(`${serverOrigin}/demo/api/upscaleimg`, formData, {withCredentials : true})
+        const response = await axios.post(`${serverOrigin}/demo/api/upscaleimg`, formData)
         const base64Img = response.data.data
         return base64Img
     }catch(error){
