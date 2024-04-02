@@ -10,12 +10,13 @@ function TxtToImg() {
     const [aspectRatio, setAspectRatio] = useState('')
     const [loading, setLoading] = useState(false)
     const [negPrompt, setNegPrompt] = useState("")
-    const [seed, setSeed] = useState(0.5)
+    const [seed, setSeed] = useState(1)
 
       function handleChange(e){
         const name = e.target.name
         const value = e.target.value
         if(name == "aspectratio"){
+          console.log(value)
           setAspectRatio(value)
         }
         else if(name == "prompt"){
@@ -25,11 +26,13 @@ function TxtToImg() {
           setNegPrompt(value)
         }
         else{
+          console.log(value)
           setSeed(value)
         }
       }
 
-    
+    async function handleDownloadClick(e){
+    }
 
       async function handleSubmit(){
         setBase64Img(null)
@@ -57,7 +60,7 @@ function TxtToImg() {
               <option value="3:2">3:2</option>
               <option value="9:16">9:16</option>
             </select>
-            
+            <button><a href={`data:image/png;base64,${base64Img}`} download='image.png' onClick={handleDownloadClick}>download</a></button>
             <button onClick={handleSubmit} >Submit</button>
             </div>
         </>
