@@ -1,4 +1,7 @@
 import axios from 'axios'
+import tinify from 'tinify'
+
+
 
 
 // const engineId = 'stable-diffusion-v1-6';
@@ -35,7 +38,16 @@ const generateImg = async (req, res) => {
         requestBody,
         {headers})
 
-        const image = response.data.image
+        var image = response.data.image
+
+        tinify.key = process.env.TINIFY_API_KEY
+        const imgBuffer = Buffer.from(image, 'base64')
+
+        const imgNewBuffer  = await tinify.fromBuffer(imgBuffer).toBuffer()
+
+        const imgNewBase64 = imgNewBuffer.toString('base64')
+        image = imgNewBase64
+
         res.status(200).json({SUCCESS : true, data : {image}})
     }catch(error){
         console.log(error.response.data)
