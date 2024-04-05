@@ -10,7 +10,8 @@ function TxtToImg() {
     const [aspectRatio, setAspectRatio] = useState('')
     const [loading, setLoading] = useState(false)
     const [negPrompt, setNegPrompt] = useState("")
-    const [seed, setSeed] = useState(1)
+    const [seed, setSeed] = useState(0)
+    const [key, setKey] = useState('')
 
       function handleChange(e){
         const name = e.target.name
@@ -25,8 +26,11 @@ function TxtToImg() {
         else if(name == "negPrompt"){
           setNegPrompt(value)
         }
-        else{
+        else if(name == "key"){
           console.log(value)
+          setKey(value)
+        }
+        else{
           setSeed(value)
         }
       }
@@ -37,7 +41,7 @@ function TxtToImg() {
       async function handleSubmit(){
         setBase64Img(null)
         setLoading(true)
-        const resBase64Img= await getTxtToImg(prompt, negPrompt, aspectRatio, seed)
+        const resBase64Img= await getTxtToImg(prompt, negPrompt, aspectRatio, seed, key)
         setLoading(false)
         setBase64Img(resBase64Img)
       }
@@ -49,7 +53,7 @@ function TxtToImg() {
             <input placeholder='Enter a prompt' onChange={handleChange} value={prompt} name='prompt'/>
             <input placeholder='Negative prompt(Optional)' onChange={handleChange} value={negPrompt} name='negPrompt'/>
             <label htmlFor='seed'>Seed</label>
-            <input type='range' name='seed' min='0' max='1' step='0.1' id='seed' value={seed} onChange={handleChange}></input>
+            <input type='range' name='seed' min='0' max='1' step='1' id='seed' value={seed} onChange={handleChange}></input>
             <label htmlFor='aspectratio'>Aspect-ratio</label>
             <select id='aspectratio' onChange={handleChange} name='aspectratio' value={aspectRatio}>
               <option value="16:9">16:9</option>
@@ -60,6 +64,7 @@ function TxtToImg() {
               <option value="3:2">3:2</option>
               <option value="9:16">9:16</option>
             </select>
+            <input className='key'  name='key' value={key} onChange={handleChange} placeholder='Enter you key...'/>
             <button><a href={`data:image/png;base64,${base64Img}`} download='image.png' onClick={handleDownloadClick}>download</a></button>
             <button onClick={handleSubmit} >Submit</button>
             </div>
