@@ -50,7 +50,7 @@ const generateImg = async (req, res) => {
 
         res.status(200).json({SUCCESS : true, data : {image}})
     }catch(error){
-        console.log(error.response.data)
+
         res.status(400).json({"SUCCESS" : false})
     }
 }
