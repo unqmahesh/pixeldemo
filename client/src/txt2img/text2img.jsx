@@ -27,7 +27,7 @@ function TxtToImg() {
           setNegPrompt(value)
         }
         else if(name == "key"){
-          console.log(value)
+
           setKey(value)
         }
         else{
