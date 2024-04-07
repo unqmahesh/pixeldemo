@@ -6,7 +6,7 @@ import indexRouter from './router/index-router.js'
 
 const app = express()
 
-app.use(cors({origin : '*'}))
+app.use(cors({origin : 'https://pixal-craft.onrender.com'}))
 
 
 app.use(express.urlencoded({extended : true}))
