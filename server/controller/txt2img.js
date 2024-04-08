@@ -16,14 +16,16 @@ const generateImg = async (req, res) => {
         aspect_ratio : "16:9",
         negative_prompt : "blur",
         prompt: 'a paper that container , Hey type something',
-        seed : 1
+        seed : 1,
+        style_preset : "Photographic"
     };
 
-    const {prompt, seed, negative_prompt, aspect_ratio, apiKey} = req.body
-    requestBody.seed = seed || Number(requestBody.seed)
+    const {prompt, seed, negative_prompt, aspect_ratio, apiKey, style_preset} = req.body
+    requestBody.seed = seed || requestBody.seed
     requestBody.negative_prompt = negative_prompt || requestBody.negative_prompt
     requestBody.aspect_ratio = aspect_ratio || requestBody.aspect_ratio
     requestBody.prompt = prompt || requestBody.prompt
+    requestBody.style_preset = style_preset || requestBody.style_preset
   
     const headers = {
         'Content-Type': 'multipart/form-data',
