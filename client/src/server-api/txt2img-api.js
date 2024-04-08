@@ -2,10 +2,10 @@ import axios from 'axios'
 
 const serverOrigin = import.meta.env.VITE_SERVERORIGIN || "http://localhost:5000/demo/api/txt2img"
 
-const getTxtToImg = async (prompt, negative_prompt, aspect_ratio, seed, key) => {
+const getTxtToImg = async (prompt, negative_prompt, aspect_ratio, seed, key, style) => {
     try{
         const response = await axios.post(`${serverOrigin}/demo/api/txt2img`,
-        {prompt, negative_prompt, aspect_ratio, seed, apiKey : key})
+        {prompt, negative_prompt, aspect_ratio, seed, apiKey : key, style_preset : style})
         const base64Img = response.data.data.image
         return base64Img
     }catch(error){

@@ -12,6 +12,7 @@ function TxtToImg() {
     const [negPrompt, setNegPrompt] = useState("")
     const [seed, setSeed] = useState(0)
     const [key, setKey] = useState('')
+    const [style, setStyle] = useState('')
 
       function handleChange(e){
         const name = e.target.name
@@ -30,8 +31,11 @@ function TxtToImg() {
 
           setKey(value)
         }
-        else{
+        else if(name == "seed"){
           setSeed(value)
+        }
+        else{
+          setStyle(value)
         }
       }
 
@@ -41,7 +45,7 @@ function TxtToImg() {
       async function handleSubmit(){
         setBase64Img(null)
         setLoading(true)
-        const resBase64Img= await getTxtToImg(prompt, negPrompt, aspectRatio, seed, key)
+        const resBase64Img= await getTxtToImg(prompt, negPrompt, aspectRatio, seed, key, style)
         setLoading(false)
         setBase64Img(resBase64Img)
       }
@@ -64,7 +68,27 @@ function TxtToImg() {
               <option value="3:2">3:2</option>
               <option value="9:16">9:16</option>
             </select>
-            <input className='key'  name='key' value={key} onChange={handleChange} placeholder='Enter you key...'/>
+            <label htmlFor='style'>Style</label>
+            <select id='stlyle' name='style' onChange={handleChange} value={style}>
+              <option value="3d-model">3d-model</option>
+              <option value="anime">anime</option>
+              <option value='cinematic'>cinematic</option>
+              <option value='comic-book'>comic-book</option>
+              <option value='digital-art'>digital-art</option>
+              <option value='enhance '>enhance</option>
+              <option value='fantasy-art'>fantasy-art</option>
+              <option value='isometric'>isometric</option>
+              <option value='line-art'>line-art</option>
+              <option value='low-poly'>low-poly</option>
+              <option value='modeling-compound'>modeling-compound</option>
+              <option value='neon-punk'>neon-punk</option>
+              <option value='origami'>origami</option>
+              <option value='photographic'>photographic</option>
+              <option value='pixel-art'>pixel-art</option>
+              <option value='tile-texture'>tile-texture</option>
+            </select>
+            {/* <input className='style' name='style' value={style} onChange={handleChange} placeholder='Style' /> */}
+            <input className='key'  name='key' value={key} onChange={handleChange} placeholder='Enter your key...'/>
             <button><a href={`data:image/png;base64,${base64Img}`} download='image.png' onClick={handleDownloadClick}>download</a></button>
             <button onClick={handleSubmit} >Submit</button>
             </div>
